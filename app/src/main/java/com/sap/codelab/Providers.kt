@@ -1,6 +1,8 @@
 package com.sap.codelab
 
 import android.content.Context
+import com.sap.codelab.location.GeofenceMonitor
+import com.sap.codelab.location.playservices.PlayServicesGeofenceMonitor
 import com.sap.codelab.map.MapFactory
 import com.sap.codelab.map.osmdroid.OsmdroidMapFactory
 import com.sap.codelab.notification.AndroidReminderNotifier
@@ -14,6 +16,9 @@ import com.sap.codelab.notification.ReminderNotifier
  */
 internal object Providers {
 
+    lateinit var geofenceMonitor: GeofenceMonitor
+        private set
+
     lateinit var reminderNotifier: ReminderNotifier
         private set
 
@@ -21,6 +26,7 @@ internal object Providers {
         private set
 
     fun initialize(applicationContext: Context) {
+        geofenceMonitor = PlayServicesGeofenceMonitor(applicationContext)
         reminderNotifier = AndroidReminderNotifier(applicationContext)
         mapFactory = OsmdroidMapFactory(applicationContext)
     }

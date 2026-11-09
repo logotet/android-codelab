@@ -43,6 +43,10 @@
             android:exported="false"
             android:label="@string/select_location"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver
+            android:name="com.sap.codelab.location.playservices.GeofenceBroadcastReceiver"
+            android:exported="false" />
     </application>
 
 </manifest>
