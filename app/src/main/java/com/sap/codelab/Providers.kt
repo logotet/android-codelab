@@ -3,6 +3,8 @@ package com.sap.codelab
 import android.content.Context
 import com.sap.codelab.map.MapFactory
 import com.sap.codelab.map.osmdroid.OsmdroidMapFactory
+import com.sap.codelab.notification.AndroidReminderNotifier
+import com.sap.codelab.notification.ReminderNotifier
 
 /**
  * Provides the implementations of the abstractions around 3rd party libraries.
@@ -12,10 +14,14 @@ import com.sap.codelab.map.osmdroid.OsmdroidMapFactory
  */
 internal object Providers {
 
+    lateinit var reminderNotifier: ReminderNotifier
+        private set
+
     lateinit var mapFactory: MapFactory
         private set
 
     fun initialize(applicationContext: Context) {
+        reminderNotifier = AndroidReminderNotifier(applicationContext)
         mapFactory = OsmdroidMapFactory(applicationContext)
     }
 }
