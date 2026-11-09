@@ -19,9 +19,19 @@ internal data class Memo(
         @ColumnInfo(name = "reminderDate")
         var reminderDate: Long,
         @ColumnInfo(name = "reminderLatitude")
-        var reminderLatitude: Long,
+        var reminderLatitude: Double?,
         @ColumnInfo(name = "reminderLongitude")
-        var reminderLongitude: Long,
+        var reminderLongitude: Double?,
         @ColumnInfo(name = "isDone")
         var isDone: Boolean = false
 )
+
+/**
+ * The location the user chose for this memo's reminder, or null if the memo has none.
+ */
+internal val Memo.location: GeoLocation?
+    get() {
+        val latitude = reminderLatitude ?: return null
+        val longitude = reminderLongitude ?: return null
+        return GeoLocation(latitude, longitude)
+    }
