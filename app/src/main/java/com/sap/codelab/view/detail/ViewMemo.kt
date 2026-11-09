@@ -2,6 +2,7 @@ package com.sap.codelab.view.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.sap.codelab.databinding.ActivityViewMemoBinding
@@ -22,6 +23,12 @@ internal class ViewMemo : AppCompatActivity() {
         binding = ActivityViewMemoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        // The layout is shared with CreateMemo; picking a location is only part of creating a memo
+        binding.contentCreateMemo.run {
+            memoLocationLabel.isVisible = false
+            memoLocation.isVisible = false
+            selectLocation.isVisible = false
+        }
         // Initialize views with the passed memo id
         val model = ViewModelProvider(this)[ViewMemoViewModel::class.java]
         if (savedInstanceState == null) {

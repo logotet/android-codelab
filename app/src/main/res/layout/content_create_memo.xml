@@ -39,5 +39,50 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/memo_location_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_text"
+        android:paddingEnd="@dimen/padding_text"
+        android:text="@string/memo_location"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/memo_description_container" />
+
+    <TextView
+        android:id="@+id/memo_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_text"
+        android:paddingEnd="@dimen/padding_text"
+        android:text="@string/memo_location_not_set"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="@id/select_location"
+        app:layout_constraintEnd_toStartOf="@id/select_location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/select_location" />
+
+    <Button
+        android:id="@+id/select_location"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_select_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/memo_location_label" />
+
+    <TextView
+        android:id="@+id/memo_location_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_text"
+        android:paddingEnd="@dimen/padding_text"
+        android:text="@string/memo_location_empty_error"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textColor="?attr/colorError"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/select_location"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

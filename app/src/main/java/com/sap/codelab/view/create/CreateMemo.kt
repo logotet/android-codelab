@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.StringRes
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.sap.codelab.R
 import com.sap.codelab.databinding.ActivityCreateMemoBinding
 import com.sap.codelab.utils.extensions.empty
+import com.sap.codelab.view.pick.PickLocationContract
 
 /**
  * Activity that allows a user to create a new Memo.
@@ -17,6 +19,12 @@ internal class CreateMemo : AppCompatActivity() {
 
     private lateinit var binding: ActivityCreateMemoBinding
     private lateinit var model: CreateMemoViewModel
+    private val pickLocationLauncher = registerForActivityResult(PickLocationContract()) { location ->
+        if (location != null) {
+            model.updateLocation(location)
+            updateLocationViews()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +32,11 @@ internal class CreateMemo : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         model = ViewModelProvider(this)[CreateMemoViewModel::class.java]
+
+        binding.contentCreateMemo.selectLocation.setOnClickListener {
+            pickLocationLauncher.launch(model.location)
+        }
+        updateLocationViews()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -58,6 +71,20 @@ internal class CreateMemo : AppCompatActivity() {
             } else {
                 memoTitleContainer.error = getErrorMessage(model.hasTitleError(), R.string.memo_title_empty_error)
                 memoDescription.error = getErrorMessage(model.hasTextError(), R.string.memo_text_empty_error)
+                memoLocationError.isVisible = model.hasLocationError()
+            }
+        }
+    }
+
+    /**
+     * Shows the location the user picked.
+     */
+    private fun updateLocationViews() {
+        binding.contentCreateMemo.run {
+            val location = model.location
+            memoLocation.text = location?.toDisplayString() ?: getString(R.string.memo_location_not_set)
+            if (location != null) {
+                memoLocationError.isVisible = false
             }
         }
     }

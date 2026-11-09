@@ -9,6 +9,12 @@
     <string name="memo_title_empty_error">Please provide a title for this memo</string>
     <string name="memo_text_empty_error">Please provide a memo description</string>
 
+    <!-- Memo location -->
+    <string name="memo_location">Location</string>
+    <string name="memo_location_not_set">Not set</string>
+    <string name="memo_location_empty_error">Please select the location you want to be reminded at</string>
+    <string name="action_select_location">Select on map</string>
+
     <!-- Picking a location -->
     <string name="select_location">Select location</string>
     <string name="pick_location_hint">Tap the map to place the pin</string>
