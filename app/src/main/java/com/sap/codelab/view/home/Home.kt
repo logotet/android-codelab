@@ -1,7 +1,9 @@
 package com.sap.codelab.view.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,11 +14,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
 import com.sap.codelab.R
 import com.sap.codelab.databinding.ActivityHomeBinding
+import com.google.android.material.snackbar.Snackbar
 import com.sap.codelab.model.Memo
 import com.sap.codelab.view.create.CreateMemo
+import com.sap.codelab.view.create.RESULT_REMINDERS_ENABLED
 import com.sap.codelab.view.detail.BUNDLE_MEMO_ID
 import com.sap.codelab.view.detail.ViewMemo
 import kotlinx.coroutines.launch
+
+/**
+ * The "reminders disabled" message is long and comes with an action, so it stays longer than [Snackbar.LENGTH_LONG].
+ */
+private const val REMINDERS_DISABLED_DURATION_MS = 8_000
 
 /**
  * The main activity of the app. Shows a list of recorded memos and lets the user add new memos.
@@ -30,6 +39,9 @@ internal class Home : AppCompatActivity() {
     private val createMemoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             model.refreshMemos()
+            if (result.data?.getBooleanExtra(RESULT_REMINDERS_ENABLED, true) == false) {
+                showRemindersDisabled()
+            }
         }
     }
 
@@ -48,6 +60,17 @@ internal class Home : AppCompatActivity() {
             createMemoLauncher.launch(Intent(this@Home, CreateMemo::class.java))
         }
         model.loadOpenMemos()
+    }
+
+    /**
+     * Tells the user that they won't be reminded of their memos and offers to fix that in the system settings.
+     */
+    private fun showRemindersDisabled() {
+        Snackbar.make(binding.root, R.string.reminders_disabled, REMINDERS_DISABLED_DURATION_MS)
+            .setAction(R.string.action_settings) {
+                startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null)))
+            }
+            .show()
     }
 
     /**

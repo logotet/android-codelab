@@ -20,6 +20,14 @@
     <string name="pick_location_hint">Tap the map to place the pin</string>
     <string name="action_confirm">Confirm</string>
 
+    <!-- Permissions -->
+    <string name="background_location_rationale_title">Remind you on arrival?</string>
+    <string name="background_location_rationale_message">To remind you when you get within 200 m of this memo\'s location, even while the app is closed, the app needs your precise location all the time.\n\nOn the next screen, choose \"Allow all the time\".</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_not_now">Not now</string>
+    <string name="reminders_disabled">Memo saved. Reminders need location \"all the time\" and notifications</string>
+    <string name="action_settings">Settings</string>
+
     <!-- Reminder notifications -->
     <string name="reminder_channel_name">Location reminders</string>
     <string name="reminder_channel_description">Reminds you of a memo when you reach its location</string>
