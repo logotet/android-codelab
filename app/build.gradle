@@ -45,6 +45,7 @@ ext {
     kotlinCoroutinesVersion = '1.10.2'
     roomVersion = '2.7.2'
     lifecycleVersion = '2.9.3'
+    playServicesLocationVersion = '21.3.0'
     osmdroidVersion = '6.1.20'
 }
 
@@ -68,6 +69,10 @@ dependencies {
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$kotlinCoroutinesVersion"
+
+    //Location monitoring (geofencing) - only used behind com.sap.codelab.location.GeofenceMonitor
+    implementation "com.google.android.gms:play-services-location:$playServicesLocationVersion"
 
     //Maps - only used behind com.sap.codelab.map.LocationPickerMap
     implementation "org.osmdroid:osmdroid-android:$osmdroidVersion"
