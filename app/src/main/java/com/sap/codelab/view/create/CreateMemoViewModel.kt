@@ -1,18 +1,22 @@
 package com.sap.codelab.view.create
 
 import androidx.lifecycle.ViewModel
+import com.sap.codelab.domain.SaveMemoUseCase
 import com.sap.codelab.model.GeoLocation
 import com.sap.codelab.model.Memo
 import com.sap.codelab.model.location
-import com.sap.codelab.repository.Repository
 import com.sap.codelab.utils.coroutines.ScopeProvider
 import com.sap.codelab.utils.extensions.empty
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
  * ViewModel for matching CreateMemo view. Handles user interactions.
  */
-internal class CreateMemoViewModel : ViewModel() {
+internal class CreateMemoViewModel(
+    private val saveMemoUseCase: SaveMemoUseCase = SaveMemoUseCase(),
+    private val applicationScope: CoroutineScope = ScopeProvider.application,
+) : ViewModel() {
 
     private var memo = Memo(0, String.empty(), String.empty(), 0, null, null, false)
 
@@ -23,11 +27,12 @@ internal class CreateMemoViewModel : ViewModel() {
         private set
 
     /**
-     * Saves the memo in it's current state.
+     * Saves the memo in it's current state and starts monitoring its location.
      */
     fun saveMemo() {
-        ScopeProvider.application.launch {
-            Repository.saveMemo(memo)
+        val memoToSave = memo
+        applicationScope.launch {
+            saveMemoUseCase(memoToSave)
         }
     }
 
