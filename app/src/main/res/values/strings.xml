@@ -8,4 +8,9 @@
     <string name="action_save">Save</string>
     <string name="memo_title_empty_error">Please provide a title for this memo</string>
     <string name="memo_text_empty_error">Please provide a memo description</string>
+
+    <!-- Picking a location -->
+    <string name="select_location">Select location</string>
+    <string name="pick_location_hint">Tap the map to place the pin</string>
+    <string name="action_confirm">Confirm</string>
 </resources>

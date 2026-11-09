@@ -38,6 +38,11 @@
             android:name="com.sap.codelab.view.detail.ViewMemo"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.sap.codelab.view.pick.PickLocation"
+            android:exported="false"
+            android:label="@string/select_location"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
