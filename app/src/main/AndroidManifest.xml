@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Restores the monitored locations after a reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".repository.App"
@@ -47,6 +49,15 @@
         <receiver
             android:name="com.sap.codelab.location.playservices.GeofenceBroadcastReceiver"
             android:exported="false" />
+        <!-- Exported to receive the system broadcasts; both actions are protected, so other apps can't send them -->
+        <receiver
+            android:name="com.sap.codelab.location.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
