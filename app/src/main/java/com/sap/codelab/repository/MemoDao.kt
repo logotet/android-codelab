@@ -25,14 +25,22 @@ internal interface MemoDao {
     fun getOpen(): List<Memo>
 
     /**
-     * Inserts the given Memo into the database. We currently do not support updating of memos.
+     * @return all memos that have not yet been marked as "done" and have a reminder location.
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(memo: Memo)
+    @Query("SELECT * FROM memo WHERE isDone = 0 AND reminderLatitude IS NOT NULL AND reminderLongitude IS NOT NULL")
+    fun getOpenWithLocation(): List<Memo>
 
     /**
-     * @return the memo whose id matches the given id.
+     * Inserts the given Memo into the database, replacing an existing memo with the same id.
+     *
+     * @return the id of the inserted memo.
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(memo: Memo): Long
+
+    /**
+     * @return the memo whose id matches the given id, or null if there is no such memo.
      */
     @Query("SELECT * FROM memo WHERE id = :memoId")
-    fun getMemoById(memoId: Long): Memo
+    fun getMemoById(memoId: Long): Memo?
 }

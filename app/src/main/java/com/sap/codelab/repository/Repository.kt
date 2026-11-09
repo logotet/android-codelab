@@ -21,16 +21,17 @@ internal object Repository : IMemoRepository {
     }
 
     @WorkerThread
-    override fun saveMemo(memo: Memo) {
-        database.getMemoDao().insert(memo)
-    }
+    override fun saveMemo(memo: Memo): Long = database.getMemoDao().insert(memo)
 
     @WorkerThread
     override fun getOpen(): List<Memo> = database.getMemoDao().getOpen()
 
     @WorkerThread
+    override fun getOpenWithLocation(): List<Memo> = database.getMemoDao().getOpenWithLocation()
+
+    @WorkerThread
     override fun getAll(): List<Memo> = database.getMemoDao().getAll()
 
     @WorkerThread
-    override fun getMemoById(id: Long): Memo = database.getMemoDao().getMemoById(id)
+    override fun getMemoById(id: Long): Memo? = database.getMemoDao().getMemoById(id)
 }

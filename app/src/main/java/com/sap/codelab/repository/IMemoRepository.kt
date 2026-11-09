@@ -9,8 +9,10 @@ internal interface IMemoRepository {
 
     /**
      * Saves the given memo to the database.
+     *
+     * @return the id of the saved memo.
      */
-    fun saveMemo(memo: Memo)
+    fun saveMemo(memo: Memo): Long
 
     /**
      * @return all memos currently in the database.
@@ -23,7 +25,12 @@ internal interface IMemoRepository {
     fun getOpen(): List<Memo>
 
     /**
-     * @return the memo whose id matches the given id.
+     * @return all memos that have not been marked as "done" and have a reminder location.
      */
-    fun getMemoById(id: Long): Memo
+    fun getOpenWithLocation(): List<Memo>
+
+    /**
+     * @return the memo whose id matches the given id, or null if there is no such memo.
+     */
+    fun getMemoById(id: Long): Memo?
 }
